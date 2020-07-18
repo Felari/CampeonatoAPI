@@ -20,8 +20,10 @@ namespace Campeonato.Service.Services
         }
         public IEnumerable<VisualizaTimeViewModel> RecoverAll()
         {
-            var times = _repository.GetAll().ToList();
+            var times = _repository.GetAll().OrderBy(x => x.Id).ToList();
+      
             var timesVM = Mapper.Map<List<TimeEntity>, List<VisualizaTimeViewModel>>(times);
+            
             return timesVM;
         }
 

@@ -27,11 +27,23 @@ namespace Campeonato.Application.Controllers
 
         // GET: api/Times
         [HttpGet]
-        public IActionResult GetTime()
+        [ActionName(("GetAll/{pagina}"))]
+        public IActionResult GetAllTimes(int pagina = 1)
         {
             var time = _serviceTime.RecoverAll();
-
-            return Ok(time);
+            var qtdPaginas = Math.Round(Convert.ToDecimal(time.Count()) / Convert.ToDecimal(10));
+            if (pagina != 1)
+            {
+                time = time.Skip(10 * (pagina - 1)).ToList();
+            }
+            
+            var vm = new TimeViewModel
+            {
+                Times = time.ToList(),
+                qtdPaginas = Convert.ToInt32(qtdPaginas),
+                pgnAtual = pagina
+            };
+            return Ok(vm);
         }
 
         // GET: api/Times/5
