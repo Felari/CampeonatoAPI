@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Campeonato.Domain.Entidade;
 using Campeonato.Infra.Data.Context;
 using Campeonato.Domain.Interfaces;
+using Campeonato.Domain.Models;
+using AutoMapper;
 
 namespace Campeonato.Application.Controllers
 {
@@ -46,69 +48,50 @@ namespace Campeonato.Application.Controllers
             return Ok(time);
         }
 
-        //// PUT: api/Times/5
-        //// To protect from overposting attacks, enable the specific properties you want to bind to, for
-        //// more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutTime(int id, Time time)
-        //{
-        //    if (id != time.Id)
-        //    {
-        //        return BadRequest();
-        //    }
+        // PUT: api/Times/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
+        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutTime(AtualizaTimeViewModel time)
+        {
+            var timeAtualiza = Mapper.Map<VisualizaTimeViewModel, AtualizaTimeViewModel>(_serviceTime.RecoverById(time.Id));
 
-        //    _context.Entry(time).State = EntityState.Modified;
+            if (timeAtualiza == null)
+            {
+                return BadRequest();
+            }
 
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!TimeExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
+            var Time = _serviceTime.Update(timeAtualiza);
 
-        //    return NoContent();
-        //}
 
-        //// POST: api/Times
-        //// To protect from overposting attacks, enable the specific properties you want to bind to, for
-        //// more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        //[HttpPost]
-        //public async Task<ActionResult<Time>> PostTime(Time time)
-        //{
-        //    _context.Time.Add(time);
-        //    await _context.SaveChangesAsync();
+            return Ok(Time);
+        }
 
-        //    return CreatedAtAction("GetTime", new { id = time.Id }, time);
-        //}
+        // POST: api/Times
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
+        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [HttpPost]
+        public IActionResult PostTime(AdicionaTimeViewModel time)
+        {
+           var TimeAdd = _serviceTime.Insert(time);            
 
-        //// DELETE: api/Times/5
-        //[HttpDelete("{id}")]
-        //public async Task<ActionResult<Time>> DeleteTime(int id)
-        //{
-        //    var time = await _context.Time.FindAsync(id);
-        //    if (time == null)
-        //    {
-        //        return NotFound();
-        //    }
+            return Ok(TimeAdd);
+        }
 
-        //    _context.Time.Remove(time);
-        //    await _context.SaveChangesAsync();
+        // DELETE: api/Times/5
+        [HttpDelete("{id}")]
+        public IActionResult DeleteTime(int id)
+        {
+            var time = _serviceTime.RecoverById(id);
+            if (time == null)
+            {
+                return NotFound();
+            }
 
-        //    return time;
-        //}
+            _serviceTime.Delete(id);
 
-        //private bool TimeExists(int id)
-        //{
-        //    return _context.Time.Any(e => e.Id == id);
-        //}
+            return Ok("Okay");
+        }
+
     }
 }

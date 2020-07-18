@@ -21,7 +21,6 @@ namespace Campeonato.Service.Services
         public IEnumerable<VisualizaTimeViewModel> RecoverAll()
         {
             var times = _repository.GetAll().ToList();
-            VisualizaTimeViewModel teste = new VisualizaTimeViewModel { Nome = times.FirstOrDefault().Nome };
             var timesVM = Mapper.Map<List<TimeEntity>, List<VisualizaTimeViewModel>>(times);
             return timesVM;
         }
@@ -45,12 +44,8 @@ namespace Campeonato.Service.Services
         }
 
 
-        public VisualizaTimeViewModel Update(int id, AtualizaTimeViewModel timeViewModel)
+        public VisualizaTimeViewModel Update(AtualizaTimeViewModel timeViewModel)
         {
-            if (id != timeViewModel.Id)
-            {
-                    return default;
-            }
             var time = Mapper.Map<AtualizaTimeViewModel, TimeEntity>(timeViewModel);
 
             _repository.Save(time);

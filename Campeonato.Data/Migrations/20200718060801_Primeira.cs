@@ -127,12 +127,12 @@ namespace Campeonato.Infra.Data.Migrations
                 columns: new[] { "Id", "CampeonatoId", "GolTimeCasa", "GolTimeVisitante", "TimeCasaId", "TimeVisitanteId" },
                 values: new object[,]
                 {
-                    { 1, 1, 4, 4, 1, 2 },
-                    { 2, 1, 3, 1, 1, 3 },
-                    { 4, 1, 1, 1, 2, 3 },
-                    { 3, 1, 5, 4, 1, 4 },
-                    { 5, 1, 9, 5, 2, 4 },
-                    { 6, 1, 2, 0, 3, 4 }
+                    { 1, 1, 6, 5, 1, 2 },
+                    { 2, 1, 8, 5, 1, 3 },
+                    { 4, 1, 2, 8, 2, 3 },
+                    { 3, 1, 5, 3, 1, 4 },
+                    { 5, 1, 9, 0, 2, 4 },
+                    { 6, 1, 9, 2, 3, 4 }
                 });
 
             migrationBuilder.CreateIndex(

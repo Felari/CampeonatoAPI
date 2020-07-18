@@ -1,8 +1,10 @@
 ﻿using Campeonato.Domain.Entidade;
 using Campeonato.Domain.Interfaces;
 using Campeonato.Infra.Data.Context;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Campeonato.Infra.Data.Repository
@@ -26,8 +28,15 @@ namespace Campeonato.Infra.Data.Repository
         public TimeEntity GetById(int id) =>
             base.Select(id);
 
-        public IList<TimeEntity> GetAll() =>
-            base.Select();
+        public IList<TimeEntity> GetAll()
+        {
+            var times = _DbContext.Time.Include(t => t.Participantes)
+                .ThenInclude(x => x.Time)
+                .ThenInclude(x => x.PartidasCasa)
+                .Include(x => x.PartidasVisitante).ToList();
+            return times;
+        }
+
 
 
     }

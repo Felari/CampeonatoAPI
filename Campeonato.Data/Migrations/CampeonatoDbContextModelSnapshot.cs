@@ -18,7 +18,7 @@ namespace Campeonato.Infra.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Campeonato.Domain.Entidade.CampeonatoSydy", b =>
+            modelBuilder.Entity("Campeonato.Domain.Entidade.CampeonatoSydyEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -41,7 +41,7 @@ namespace Campeonato.Infra.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Campeonato.Domain.Entidade.Participante", b =>
+            modelBuilder.Entity("Campeonato.Domain.Entidade.ParticipanteEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -96,7 +96,7 @@ namespace Campeonato.Infra.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Campeonato.Domain.Entidade.Partida", b =>
+            modelBuilder.Entity("Campeonato.Domain.Entidade.PartidaEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -133,8 +133,8 @@ namespace Campeonato.Infra.Data.Migrations
                         {
                             Id = 1,
                             CampeonatoId = 1,
-                            GolTimeCasa = 4,
-                            GolTimeVisitante = 4,
+                            GolTimeCasa = 6,
+                            GolTimeVisitante = 5,
                             TimeCasaId = 1,
                             TimeVisitanteId = 2
                         },
@@ -142,8 +142,8 @@ namespace Campeonato.Infra.Data.Migrations
                         {
                             Id = 2,
                             CampeonatoId = 1,
-                            GolTimeCasa = 3,
-                            GolTimeVisitante = 1,
+                            GolTimeCasa = 8,
+                            GolTimeVisitante = 5,
                             TimeCasaId = 1,
                             TimeVisitanteId = 3
                         },
@@ -152,7 +152,7 @@ namespace Campeonato.Infra.Data.Migrations
                             Id = 3,
                             CampeonatoId = 1,
                             GolTimeCasa = 5,
-                            GolTimeVisitante = 4,
+                            GolTimeVisitante = 3,
                             TimeCasaId = 1,
                             TimeVisitanteId = 4
                         },
@@ -160,8 +160,8 @@ namespace Campeonato.Infra.Data.Migrations
                         {
                             Id = 4,
                             CampeonatoId = 1,
-                            GolTimeCasa = 1,
-                            GolTimeVisitante = 1,
+                            GolTimeCasa = 2,
+                            GolTimeVisitante = 8,
                             TimeCasaId = 2,
                             TimeVisitanteId = 3
                         },
@@ -170,7 +170,7 @@ namespace Campeonato.Infra.Data.Migrations
                             Id = 5,
                             CampeonatoId = 1,
                             GolTimeCasa = 9,
-                            GolTimeVisitante = 5,
+                            GolTimeVisitante = 0,
                             TimeCasaId = 2,
                             TimeVisitanteId = 4
                         },
@@ -178,14 +178,14 @@ namespace Campeonato.Infra.Data.Migrations
                         {
                             Id = 6,
                             CampeonatoId = 1,
-                            GolTimeCasa = 2,
-                            GolTimeVisitante = 0,
+                            GolTimeCasa = 9,
+                            GolTimeVisitante = 2,
                             TimeCasaId = 3,
                             TimeVisitanteId = 4
                         });
                 });
 
-            modelBuilder.Entity("Campeonato.Domain.Entidade.Time", b =>
+            modelBuilder.Entity("Campeonato.Domain.Entidade.TimeEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -231,35 +231,35 @@ namespace Campeonato.Infra.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Campeonato.Domain.Entidade.Participante", b =>
+            modelBuilder.Entity("Campeonato.Domain.Entidade.ParticipanteEntity", b =>
                 {
-                    b.HasOne("Campeonato.Domain.Entidade.CampeonatoSydy", "Campeonato")
+                    b.HasOne("Campeonato.Domain.Entidade.CampeonatoSydyEntity", "Campeonato")
                         .WithMany("Participantes")
                         .HasForeignKey("CampeonatoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Campeonato.Domain.Entidade.Time", "Time")
+                    b.HasOne("Campeonato.Domain.Entidade.TimeEntity", "Time")
                         .WithMany("Participantes")
                         .HasForeignKey("TimeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Campeonato.Domain.Entidade.Partida", b =>
+            modelBuilder.Entity("Campeonato.Domain.Entidade.PartidaEntity", b =>
                 {
-                    b.HasOne("Campeonato.Domain.Entidade.CampeonatoSydy", "Campeonato")
+                    b.HasOne("Campeonato.Domain.Entidade.CampeonatoSydyEntity", "Campeonato")
                         .WithMany("Partidas")
                         .HasForeignKey("CampeonatoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Campeonato.Domain.Entidade.Time", "TimeCasa")
+                    b.HasOne("Campeonato.Domain.Entidade.TimeEntity", "TimeCasa")
                         .WithMany("PartidasCasa")
                         .HasForeignKey("TimeCasaId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Campeonato.Domain.Entidade.Time", "TimeVisitante")
+                    b.HasOne("Campeonato.Domain.Entidade.TimeEntity", "TimeVisitante")
                         .WithMany("PartidasVisitante")
                         .HasForeignKey("TimeVisitanteId")
                         .OnDelete(DeleteBehavior.Restrict);

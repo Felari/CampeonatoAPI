@@ -13,7 +13,7 @@ namespace Campeonato.Infra.CrossCutting.IoC
         public static void AddServiceDependency(this IServiceCollection services)
         {
             services.AddScoped<IServiceTime, TimeService>();
-
+            services.AddScoped<IServiceCampeonatoSydy, CampeonatoSydyService>();
         }
 
     }

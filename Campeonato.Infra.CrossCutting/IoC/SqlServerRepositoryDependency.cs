@@ -13,6 +13,8 @@ namespace Campeonato.Infra.CrossCutting.IoC
         public static void AddSqlServerRepositoryDependency(this IServiceCollection services)
         {
             services.AddScoped<IRepositoryTime, TimeRepository>();
+            services.AddScoped<IRepositoryCampeonatoSydy, CampeonatoSydyRepository>();
+
 
         }
 

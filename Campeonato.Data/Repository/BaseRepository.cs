@@ -28,8 +28,9 @@ namespace Campeonato.Infra.Data.Repository
 
         protected virtual void Delete(int id)
         {
-            _DbContext.Set<TEntity>().Remove(Select(id));
+            _DbContext.Remove(Select(id));
             _DbContext.SaveChanges();
+
         }
 
         protected virtual IList<TEntity> Select() =>

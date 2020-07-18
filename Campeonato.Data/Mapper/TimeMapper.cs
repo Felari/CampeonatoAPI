@@ -20,22 +20,21 @@ namespace Campeonato.Infra.Data.Mapper
             CreateMap<AtualizaTimeViewModel, TimeEntity>()
                 .PreserveReferences();
 
+            CreateMap<VisualizaTimeViewModel, AtualizaTimeViewModel>()
+                .PreserveReferences();
+
             CreateMap<TimeEntity, TimeEntity>()
                 .PreserveReferences();
             CreateMap<TimeEntity, VisualizaTimeViewModel>()
                 .ForMember(x => x.Id, y => y.MapFrom(src => src.Id))
                 .ForMember(x => x.Nome, y => y.MapFrom(src => src.Nome))
-                .ForMember(x => x.Participantes, y => y.MapFrom(src => src.Participantes))
-                .ForMember(x => x.PartidasCasa, y => y.MapFrom(src => src.PartidasCasa))
-                .ForMember(x => x.PartidasVisitante, y => y.MapFrom(src => src.PartidasVisitante))
+
                 .PreserveReferences();
 
             CreateMap<VisualizaTimeViewModel, TimeEntity>()
                 .ForMember(x => x.Id, y => y.MapFrom(src => src.Id))
                 .ForMember(x => x.Nome, y => y.MapFrom(src => src.Nome))
-                .ForMember(x => x.Participantes, y => y.MapFrom(src => src.Participantes))
-                .ForMember(x => x.PartidasCasa, y => y.MapFrom(src => src.PartidasCasa))
-                .ForMember(x => x.PartidasVisitante, y => y.MapFrom(src => src.PartidasVisitante))
+
                 .PreserveReferences();
         }
 

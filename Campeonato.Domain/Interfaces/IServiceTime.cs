@@ -10,7 +10,7 @@ namespace Campeonato.Domain.Interfaces
 
         VisualizaTimeViewModel Insert(AdicionaTimeViewModel timeViewModel);
 
-        VisualizaTimeViewModel Update(int id, AtualizaTimeViewModel AtualizatimeViewModel);
+        VisualizaTimeViewModel Update(AtualizaTimeViewModel AtualizatimeViewModel);
 
         void Delete(int id);
 

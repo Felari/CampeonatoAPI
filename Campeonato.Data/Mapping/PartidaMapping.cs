@@ -21,15 +21,15 @@ namespace Campeonato.Infra.Data.Mapping
 
             builder.HasOne(x => x.TimeVisitante)
                .WithMany(x => x.PartidasVisitante)
+               .OnDelete(DeleteBehavior.Restrict)
                .HasForeignKey(x => x.TimeVisitanteId)
-               .IsRequired(false)
-               .OnDelete(DeleteBehavior.Restrict); 
+               .IsRequired(false);
 
             builder.HasOne(x => x.TimeCasa)
                 .WithMany(x => x.PartidasCasa)
-                .HasForeignKey( x => x.TimeCasaId)
-                .IsRequired(false)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasForeignKey(x => x.TimeCasaId)                
+                .IsRequired(false);
 
 
             builder.HasData(
