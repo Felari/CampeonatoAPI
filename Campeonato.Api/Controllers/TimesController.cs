@@ -13,7 +13,7 @@ using AutoMapper;
 
 namespace Campeonato.Application.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Time")]
     [ApiController]
     public class TimesController : Controller
     {
@@ -26,13 +26,12 @@ namespace Campeonato.Application.Controllers
         }
 
         // GET: api/Times
-        [HttpGet]
-        [ActionName(("GetAll/{pagina}"))]
+        [HttpGet("GetAll/{pagina}")]
         public IActionResult GetAllTimes(int pagina = 1)
         {
             var time = _serviceTime.RecoverAll();
             var qtdPaginas = Math.Round(Convert.ToDecimal(time.Count()) / Convert.ToDecimal(10));
-            if (pagina != 1)
+            if (pagina != 1 && pagina < qtdPaginas)
             {
                 time = time.Skip(10 * (pagina - 1)).ToList();
             }
